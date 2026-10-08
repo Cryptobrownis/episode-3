@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Episode 3: Dering Panggilan Di Bawah Pendar Layar</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #070709;
+            color: #e0e0e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 6px;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background: #111118;
+            border-radius: 20px;
+            border: 1px solid #20202e;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.95);
+            display: flex;
+            flex-direction: column;
+            height: 95vh;
+            overflow: hidden;
+        }
+        .header {
+            padding: 14px;
+            background: #09090d;
+            text-align: center;
+            border-bottom: 1px solid #1a1a26;
+        }
+        .header h1 {
+            font-size: 1rem;
+            color: #ff477e;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .header p {
+            font-size: 0.72rem;
+            color: #8a8a9e;
+            margin-top: 3px;
+        }
+        .story-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .narrative {
+            font-size: 0.95rem;
+            line-height: 1.85;
+            color: #d1d1e0;
+            text-align: justify;
+        }
+        .dialogue {
+            background: #181824;
+            padding: 14px 16px;
+            border-left: 3px solid #ff477e;
+            border-radius: 0 12px 12px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #ffffff;
+            font-style: italic;
+        }
+        .character-name {
+            font-weight: bold;
+            color: #ff7597;
+            font-style: normal;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .interactive-section {
+            padding: 14px;
+            background: #09090d;
+            border-top: 1px solid #1a1a26;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .choice-btn {
+            background: #1a1a26;
+            color: #ff7597;
+            border: 1px solid #ff477e;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        .choice-btn:active {
+            background: #ff477e;
+            color: #ffffff;
+        }
+        .progress-bar {
+            height: 4px;
+            background: #1a1a26;
+            width: 100%;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff477e, #ff0055);
+            width: 10%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <h1>Gelora Di Kamar Kost</h1>
+        <p>Episode 3: Dua Bayangan & Topeng Pengkhianatan</p>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress"></div>
+    </div>
+    
+    <div class="story-body" id="storyBox">
+        <!-- Konten cerita diisi oleh JavaScript -->
+    </div>
+
+    <div class="interactive-section" id="choiceBox">
+        <!-- Tombol interaksi diisi oleh JavaScript -->
+    </div>
+</div>
+
+<script>
+const scenes = [
+    {
+        narrative: "Layar ponselmu berkilat terang di atas lantai kayu yang remang, menyuarakan getaran beruntun yang memotong ketegangan di dalam kamar. Nama kekasihmu—pria atau wanita yang menunggumu di luar kota—berkedip kencang diiringi tanda panggilan video. Clarissa terengah pelan di pelukanmu, napasnya yang masih basah dan memburu menyapu kulit dadamu yang polos tanpa kemeja. Matanya membelalak menatap nama yang tertera di layar, menyadari bahaya baru yang siap menghancurkan segalanya.",
+        dialogue: "Clarissa: 'Telepon... telepon dari pacar kamu. Kamu mau angkat sekarang atau biarkan mati?'",
+        choices: [
+            { text: "Mengabaikan panggilan dan mematikan daya ponsel", nextScene: 1 },
+            { text: "Meraih ponsel dan nekat mengangkatnya sambil berbisik pada Clarissa", nextScene: 1 }
+        ]
+    },
+    {
+        narrative: "Kamu menyambar ponsel itu dari lantai, menyatukan jemarimu yang agak gemetar sebelum menekan tombol hijau. Kamera depan menyala seketika, mengunci wajahmu yang dipenuhi peluh tipis. Kamu sengaja mengarahkan kamera hanya tepat di wajahmu, membelakangi dinding kamar yang gelap agar tidak memperlihatkan Clarissa yang masih terbaring pasrah di kasur tanpa atasan tebal. Di layar, wajah kekasihmu muncul dengan tatapan curiga yang amat pekat.",
+        dialogue: "Kekasih: 'Kamu di mana sih? Kok baru diangkat? Kenapa mukamu basah berkeringat begitu dan dadamu nggak pakai baju?!'",
+        choices: [
+            { text: "'Aku baru selesai beres-beres kamar, sayang... panas banget hari ini.'", nextScene: 2 },
+            { text: "'Tadi habis olahraga sebentar di dalam kamar, makanya buka kemeja...'", nextScene: 2 }
+        ]
+    },
+    {
+        narrative: "Suaramu terdengar mengalun mencoba serapi mungkin, menutupi fakta bahwa tepat di bawah jangkauan kamera ponsel, Clarissa sedang berlutut di tepi kasur. Jemari halus Clarissa secara mengejutkan justru merayap naik menyusuri paha dalammu, menembus celana yang masih longgar. Kontak fisik yang tak terduga itu membuat tenggorokanmu tercekat; gairah terlarang ini meledak lebih dahsyat di bawah ancaman tertangkap basah secara langsung oleh kekasihmu sendiri.",
+        dialogue: "Kekasih: 'Beres-beres kamar? Kok suaramu kayak orang agak berat gitu napasnya? Kamu beneran sendirian kan di sana?'",
+        choices: [
+            { text: "Menahan napas saat jemari Clarissa menyentuh area paling sensitifmu", nextScene: 3 },
+            { text: "Mengusap rambut Clarissa dari balik sudut layar untuk menghentikannya", nextScene: 3 }
+        ]
+    },
+    {
+        narrative: "Clarissa mendongak pelan, menatap matamu lewat pendar redup cahaya ponsel. Tatapannya bukan lagi kepasrahan takut, melainkan godaan liar yang teramat manis. Ia sengaja memperdalam sentuhan jemarinya di area sensitifmu, menguji seberapa kuat ketahanan dirimu dalam menyembunyikan nada desahan di depan kekasihmu. Sensasi panas yang menjalar di selangkanganmu beradu keras dengan rasa bersalah yang menggebu, menciptakan campuran nikmat terlarang yang membakar kesadaran.",
+        dialogue: "Clarissa: '(Berbisik tanpa suara dari bawah): Tahan suaramu... kalau tidak mau dia tahu...'",
+        choices: [
+            { text: "Memejamkan mata sebentar sambil mengetatkan rahang di depan kamera", nextScene: 4 },
+            { text: "Berpura-pura terbatuk untuk mengalihkan nada desahan yang hampir lolos", nextScene: 4 }
+        ]
+    },
+    {
+        narrative: "Kamu terbatuk kecil, meremas sprei di samping tubuhmu kuat-kuat saat sengatan gairah murni menyapu seluruh sarafmu. Di layar, kekasihmu menyipitkan mata, merasa ada sesuatu yang janggal dari ekspresi wajahmu yang tegang dan mata berair. Namun, kecerdikan dan godaan sengaja Clarissa tak berhenti di situ; gerakan bibirnya yang lembut kini menyentuh kulit tubuh bagian bawahmu, membelai halus tanpa suara sedikit pun.",
+        dialogue: "Kekasih: 'Kamu kenapa sih? Kok malah batuk-batuk dan mukanya merem-melek gitu? Jangan bikin aku curiga ya!'",
+        choices: [
+            { text: "'Tenggorokan aku agak gatal, sayang... Maaf ya.'", nextScene: 5 },
+            { text: "'Udah dulu ya, aku mau mandi biar segeran...'", nextScene: 5 }
+        ]
+    },
+    {
+        narrative: "Sensasi belaian bibir Clarissa yang hangat membuat lututmu lemas dan napasmu hampir lepas kendali. Kamu harus meremas rahangmu erat-erat demi tidak meloloskan suara raungan nikmat di hadapan kamera. Clarissa menatapmu nakal, menikmati penuh siksaan sensual yang ia berikan di saat kamu harus berpura-pura menjadi pria setia di depan panggilan video.",
+        dialogue: "Clarissa: '(Berbisik sangat pelan di balik paha): Kamu milikku siang ini... bukan milik dia...'",
+        choices: [
+            { text: "Segera mematikan panggilan video secara sepihak", nextScene: 6 },
+            { text: "Beralasan sinyal buruk dan langsung menutup panggilan", nextScene: 6 }
+        ]
+    },
+    {
+        narrative: "'Sinyalnya jelek banget di sini, nanti aku telepon lagi ya!' ucapmu terburu-buru sebelum jari jemarimu menekan tombol merah. Layar ponsel seketika gelap. Seketika itu pula, tawa halus dan desahan pasrah Clarissa pecah di dalam kamar. Tanpa buang waktu, kamu melempar ponsel itu ke sudut kasur, lalu meraih tubuh Clarissa naik dan menguncinya erat di bawah dekapanmu yang panas.",
+        dialogue: "Clarissa: 'Nakal banget ya kamu... Berani-beraninya bohongin dia persis di depan mata kamu sendiri demi aku...'",
+        choices: [
+            { text: "'Ini semua karena kamu yang bikin aku gila, Clav...'", nextScene: 7 },
+            { text: "Langsung melumat bibirnya tanpa memberi jeda bicara", nextScene: 7 }
+        ]
+    },
+    {
+        narrative: "Kamu melumat bibir manisnya dengan emosi liar yang tak tertahan. Bahaya tertangkap mantan pacar dan kebohongan pada kekasihmu justru berubah menjadi bahan bakar yang menyulut gairah paling dahsyat sepanjang siang ini. Clarissa membalas ciumanmu dengan gelora penuh; kedua kakinya melingkar ketat di pinggulmu, menyatukan kehangatan kulit polos kalian yang membasah oleh peluh.",
+        dialogue: "Clarissa: 'Akhh... Emmhh... Sentuh aku lebih dalam... Jangan berhenti sekarang...'",
+        choices: [
+            { text: "Menyatu sepenuhnya dalam gelora murni tanpa rintangan", nextScene: 8 },
+            { text: "Mengecup seluruh lekuk tubuhnya dengan penuh penguasaan", nextScene: 8 }
+        ]
+    },
+    {
+        narrative: "Di dalam kamar kost yang remang dan sempit itu, gairah puncak akhirnya meledak tanpa ampun. Setiap gesekan dan desahan yang lolos menyuarakan penyerahan diri secara total. Tak ada lagi kata ragu, rahasia, ataupun rasa bersalah; yang ada hanyalah dua insan yang tenggelam bersama dalam lautan kenikmatan terlarang hingga ke titik paling lelah.",
+        dialogue: "Clarissa: 'Kamu... kamu luar biasa... Aku nggak akan pernah bisa lupain siang ini...'",
+        choices: [
+            { text: "Rebah bersama di atas kasur dengan napas terengah-engah", nextScene: 9 }
+        ]
+    },
+    {
+        narrative: "Kalian terbaring pasrah berdampingan, menikmati sisa-sisa detak jantung yang berangsur pelan di bawah hembusan kipas angin tua. Namun, saat kamu membalikkan badan untuk mendekap Clarissa, matamu tak sengaja menangkap secarik kertas surat yang terselip jatuh dari kolong kasur. Surat dari kampus bertuliskan nama Clarissa, lengkap dengan cap merah tebal bertuliskan: SURAT PENETAPAN DROP OUT & PERINTAH PENGOSONGAN KOST HARI INI...",
+        dialogue: "Clarissa: '(Menatap ke jendela dengan mata redup): Kamu udah lihat ya? Sebenarnya... hari ini adalah hari terakhirku di kota ini...'",
+        choices: [
+            { text: "BERSAMBUNG KE EPISODE 4...", nextScene: 0 }
+        ]
+    }
+];
+
+let currentScene = 0;
+
+function renderScene() {
+    const scene = scenes[currentScene];
+    const storyBox = document.getElementById('storyBox');
+    const choiceBox = document.getElementById('choiceBox');
+    const progressBar = document.getElementById('progress');
+
+    // Update Progress
+    progressBar.style.width = ((currentScene + 1) / scenes.length * 100) + '%';
+
+    // Render Story
+    storyBox.innerHTML = `
+        <div class="narrative">${scene.narrative}</div>
+        <div class="dialogue">
+            <span class="character-name">${scene.dialogue.split(':')[0]}</span>
+            ${scene.dialogue.split(':')[1]}
+        </div>
+    `;
+
+    // Render Choices
+    choiceBox.innerHTML = '';
+    scene.choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.className = 'choice-btn';
+        button.innerText = choice.text;
+        button.onclick = () => {
+            currentScene = choice.nextScene;
+            renderScene();
+            storyBox.scrollTop = 0;
+        };
+        choiceBox.appendChild(button);
+    });
+}
+
+// Inisialisasi Pertama
+renderScene();
+</script>
+
+</body>
+</html>
